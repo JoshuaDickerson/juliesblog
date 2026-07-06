@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# Claude Code local settings (launch.json and shared settings stay tracked)
+.claude/settings.local.json
