@@ -130,8 +130,10 @@ a:hover { color: var(--color-accent); }
 }
 
 .sidebar__foot {
-  margin-top: auto;
-  font-size: var(--step--1);
+  margin-top: auto;      /* pin to the very bottom of the sidebar */
+  padding-top: 1rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
   color: var(--color-sidebar-mut);
 }
 
