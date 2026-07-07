@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Julie's Garden</title>
-  <meta name="description" content="A gardening journal by Julie — notes from a new garden in the Pacific Northwest.">
+  <meta name="description" content="A gardening journal by Julie — notes from the garden, season to season.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
 <body>
   <div class="layout">
 
-    <!-- ============ SIDEBAR ============ -->
+    <!-- ============ SIDEBAR (identical on every page — keep in sync) ============ -->
     <aside class="sidebar">
       <div class="masthead">
         <p class="masthead__eyebrow">A gardening journal</p>
@@ -27,21 +27,9 @@
       <nav aria-label="Posts">
         <h2 class="posts__header">Posts</h2>
         <ul class="posts__list">
-          <!-- Newest first. Each real post is its own page under /posts. -->
-          <li class="posts__item">
-            <a class="posts__link" href="posts/2026-06-06-second-post.html">
-              <span class="posts__date">June 6, 2026</span>
-              <span class="posts__title">Gardening here will be challenging</span>
-            </a>
-          </li>
+          <!-- Newest first. The home page mirrors the most recent post. -->
           <li class="posts__item" aria-current="page">
             <a class="posts__link" href="index.html">
-              <span class="posts__date">June 6, 2026</span>
-              <span class="posts__title">Hello from the new garden</span>
-            </a>
-          </li>
-          <li class="posts__item">
-            <a class="posts__link" href="posts/2019-05-01-spring-in-the-garden.html">
               <span class="posts__date">Spring 2019</span>
               <span class="posts__title">Spring in the garden</span>
             </a>
@@ -57,63 +45,44 @@
       <article class="entry">
         <p class="entry__eyebrow">
           <span class="sprig" aria-hidden="true">
-            <!-- small botanical sprig -->
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 21V7"/><path d="M12 12c0-3 2-5 5-5 0 3-2 5-5 5Z"/><path d="M12 15c0-3-2-5-5-5 0 3 2 5 5 5Z"/>
             </svg>
           </span>
-          June 6, 2026
+          Spring 2019
         </p>
 
-        <h2 class="entry__title">Hello from the new garden</h2>
+        <h2 class="entry__title">Spring in the garden</h2>
         <hr class="entry__rule">
 
-        <!-- NOTE: The lead below is Julie's real opening line. Everything
-             after it is placeholder text and photo tiles that demonstrate
-             the content grid — replace when the post is pulled from Drive. -->
         <div class="entry-grid">
 
           <div class="block prose prose--lead">
-            <p>Hi, I&rsquo;m Julie and I&rsquo;m a gardener. I recently moved to Washington from Vermont, and this is where I&rsquo;ll keep track of what goes in the ground, what thrives, and what the slugs get to first.</p>
-            <p>[Placeholder] The soil here is a different animal — heavier, wetter, and slow to warm. This journal is where I&rsquo;ll compare notes season to season.</p>
+            <p>Each Spring I fear the garden won&rsquo;t emerge, that a long and cold winter will have resulted in the death of many beloved plants. To my delight (and that of a few bumblebees) early iris blooms did provide hope. A spattering of pale yellow narcissus and a few blue forget-me-nots brought more life to the garden beds. Eventually creeping phlox, dianthus, and geranium flowered coloring the garden with bright magenta, purple, and a deep red. We also enjoyed an impressive (although overgrown) purple iris display. I&rsquo;m still working to divide and plant individual rhizomes. Early dead nettle blooms enticed our few bubble bees even in cooler temperatures.</p>
           </div>
 
-          <!-- Text beside an image -->
+          <figure class="figure figure--bleed">
+            <img src="assets/images/2019-05-01-spring-in-the-garden-4.jpg" width="1600" height="1240" loading="lazy" alt="Deep maroon-purple dwarf iris blooming in a mulched garden bed beside a copper-leaved ninebark shrub, with a green lawn, rolling wooded hills, and a cloudy sky beyond.">
+            <figcaption>Small purple iris bloom prior to the tall bearded iris behind it. Our nine bark is getting ready to bloom, these flowering bushes handle the dry clay soil and attract pollinators with small white flowers that grow in clusters. The blooms are plentiful! Try not to bother the many bees that swarm the nine bark.</figcaption>
+          </figure>
+
           <div class="block prose block--two-third">
-            <p>[Placeholder] A paragraph of writing can sit next to a photo. On a wide screen they share the row; on a phone the image drops below the text automatically.</p>
-            <p>[Placeholder] Blocks flow like paragraphs, so a post can be as simple or as layered as the day&rsquo;s notes call for.</p>
+            <p>Allium stands tall behind geranium and creeping phlox. Fragrant white peony gets ready to bloom.</p>
           </div>
           <figure class="block block--third figure">
-            <div class="ph ph--tall"><span class="ph__label">Photo</span></div>
-            <figcaption>First raised bed, going in.</figcaption>
+            <img src="assets/images/2019-05-01-spring-in-the-garden-1.jpg" width="1105" height="1600" loading="lazy" alt="A garden bed against a gray-shingled house: purple wild geranium in bloom with allium buds on tall stems rising behind, above a mound of vivid magenta creeping phlox.">
           </figure>
 
-          <!-- A pull quote -->
-          <blockquote class="pullquote">The best time to plant a garden is the season you actually have.</blockquote>
-
-          <!-- Two photos side by side -->
           <figure class="block block--half figure">
-            <div class="ph"><span class="ph__label">Photo</span></div>
-            <figcaption>Seed starts on the windowsill.</figcaption>
+            <img src="assets/images/2019-05-01-spring-in-the-garden-3.jpg" width="1244" height="1600" loading="lazy" alt="A black dog sits in the garden among tall purple bearded iris, beside a stone raised bed topped with bright pink creeping phlox.">
           </figure>
           <figure class="block block--half figure">
-            <div class="ph"><span class="ph__label">Photo</span></div>
-            <figcaption>The compost corner, day one.</figcaption>
+            <img src="assets/images/2019-05-01-spring-in-the-garden-2.jpg" width="1200" height="1600" loading="lazy" alt="A fuzzy black-and-yellow bumblebee feeding on a dense cluster of pink dead-nettle blooms among green leaves.">
           </figure>
-
-          <!-- A full-bleed photo -->
-          <figure class="figure figure--bleed">
-            <div class="ph"><span class="ph__label">Photo</span></div>
-            <figcaption>Looking out over the plot before the first dig.</figcaption>
-          </figure>
-
-          <div class="block prose">
-            <p>[Placeholder] Closing thoughts run full width again, back to a comfortable reading measure. More soon, once the rain lets up.</p>
-          </div>
 
         </div>
 
-        <p class="entry__foot">Filed in the garden journal &middot; June 6, 2026</p>
+        <p class="entry__foot">Filed in the garden journal &middot; Spring 2019</p>
       </article>
     </main>
 
