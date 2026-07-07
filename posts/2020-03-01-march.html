@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Going Native — Julie's Garden</title>
+  <meta name="description" content="Julie expands a native plant garden with threatened and endangered species, layering lasagna mulch to bring back pollinators.">
+
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="layout">
+
+    <!-- ============ SIDEBAR (identical on every page — keep in sync) ============ -->
+    <aside class="sidebar">
+      <div class="masthead">
+        <p class="masthead__eyebrow">A gardening journal</p>
+        <h1 class="masthead__title"><a href="../index.html" style="color:inherit;text-decoration:none">Julie&rsquo;s<br>Garden</a></h1>
+        <p class="masthead__tagline">Notes from a gardener newly transplanted from Vermont to the Pacific Northwest.</p>
+      </div>
+
+      <nav aria-label="Posts">
+        <h2 class="posts__header">Posts</h2>
+        <!-- Rendered from assets/posts.js (single source of truth for all posts). -->
+        <ul class="posts__list" id="posts-list"></ul>
+      </nav>
+
+      <p class="sidebar__foot">&copy; 2026 Julia Parker</p>
+    </aside>
+
+    <!-- ============ MAIN ============ -->
+    <main class="main">
+      <article class="entry">
+        <p class="entry__eyebrow">
+          <span class="sprig" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21V7"/><path d="M12 12c0-3 2-5 5-5 0 3-2 5-5 5Z"/><path d="M12 15c0-3-2-5-5-5 0 3 2 5 5 5Z"/>
+            </svg>
+          </span>
+          March 2020
+        </p>
+
+        <h2 class="entry__title">Going Native</h2>
+        <hr class="entry__rule">
+
+        <div class="entry-grid">
+          <div class="block prose prose--lead">
+            <p>Native plants provide essential food for pollinators and wildlife. There are a number of statistics out there pointing to the decline of all pollinators and the likelihood of losing nearly one million species in the next few decades.</p>
+          </div>
+
+          <div class="block prose">
+            <p>Planting for pollinators is essential. We all must work together to save our native bees, butterflies, birds, bats, and all of the species that serve as a foundation for our food system. The urgency of this is clear and we must now take dramatic actions to support our environment.</p>
+          </div>
+
+          <div class="block prose">
+            <p>Gardens can make a difference, our reduction in lawn and increase in growing native plants support wildlife (of all shapes and sizes) in lieu of having enough habitat for food and shelter. Our gardens are the safe havens, an eden for what is left.</p>
+          </div>
+
+          <div class="block prose">
+            <p>Expansion of the native plant garden in my own yard has begun. Included in the mass planting are eight varieties of threatened and endangered species of plants. I&rsquo;ve put energy into a form of lasagna mulching, layers of manure, compost, mulch, and cardboard (for weed suppression.)</p>
+          </div>
+
+          <figure class="block block--half figure">
+            <img src="../assets/images/2020-03-01-march-1.jpg" width="1600" height="1200" loading="lazy" alt="Low mounds of dark compost and mulch spread across a dry winter meadow, with a wheelbarrow and flattened cardboard at the edge and bare-treed hills beyond under a blue sky.">
+          </figure>
+
+          <figure class="block block--half figure">
+            <img src="../assets/images/2020-03-01-march-2.jpg" width="1600" height="1200" loading="lazy" alt="A frost-bitten garden bed of matted brown grasses and a few green sprigs in the foreground of a wide winter field, with rows of new soil mounds and wooded ridges in the distance.">
+          </figure>
+
+          <div class="block prose">
+            <p>If you plant natives, the pollinators will come.</p>
+          </div>
+        </div>
+
+        <p class="entry__foot">Filed in the garden journal &middot; March 2020</p>
+      </article>
+    </main>
+
+  </div>
+
+  <script defer src="../assets/posts.js"></script>
+</body>
+</html>

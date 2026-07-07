@@ -30,12 +30,8 @@
 
       <nav aria-label="Posts">
         <h2 class="posts__header">Posts</h2>
-        <ul class="posts__list">
-          <!-- POSTS_LIST: newest first. This post is aria-current="page".
-               From a page in /posts, link siblings as "slug.html" and the
-               home page as "../index.html". -->
-          {{POSTS_LIST}}
-        </ul>
+        <!-- Rendered from assets/posts.js (single source of truth for all posts). -->
+        <ul class="posts__list" id="posts-list"></ul>
       </nav>
 
       <p class="sidebar__foot">&copy; 2026 Julia Parker</p>
@@ -65,5 +61,7 @@
     </main>
 
   </div>
+
+  <script defer src="../assets/posts.js"></script>
 </body>
 </html>

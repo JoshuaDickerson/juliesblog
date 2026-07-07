@@ -37,19 +37,27 @@ IMG_DIR="$REPO/assets/images"
 mkdir -p "$IMG_DIR"
 
 echo "==== images ===="
-i=0
+count=0
+seq=0
 shopt -s nullglob
 for img in "$WORK/unzipped/images/"*; do
-  i=$((i + 1))
-  out="$IMG_DIR/${SLUG}-${i}.jpg"
+  seq=$((seq + 1))
+  base="$(basename "$img")"
+  # Google names exports imageN.ext; key the output on that N so <slug>-N always
+  # maps to imageN in the exported HTML (a plain glob would sort image10 before
+  # image2, mismatching the references). Fall back to sequence if there's no digit.
+  num="$(printf '%s' "$base" | sed -E 's/[^0-9]*([0-9]+).*/\1/')"
+  case "$num" in ''|*[!0-9]*) num=$seq ;; esac
+  out="$IMG_DIR/${SLUG}-${num}.jpg"
   # Resize to max 1600px on the long edge and re-encode as JPEG. Garden photos
   # are large PNGs out of Drive; this typically shrinks them ~6x with no visible
   # loss, which matters for a GitHub Pages site.
   sips -s format jpeg -Z 1600 "$img" --out "$out" >/dev/null
   dims="$(sips -g pixelWidth -g pixelHeight "$out" | awk '/pixelWidth/{w=$2} /pixelHeight/{h=$2} END{print w"x"h}')"
-  echo "assets/images/${SLUG}-${i}.jpg  (${dims})  <- use these as width/height attrs"
+  echo "assets/images/${SLUG}-${num}.jpg  (${dims})  <- imageN maps to -N; use as width/height attrs"
+  count=$((count + 1))
 done
-[ "$i" -eq 0 ] && echo "(no images in this export)"
+[ "$count" -eq 0 ] && echo "(no images in this export)"
 
 echo
 echo "==== exported HTML (shows paragraph/image order) ===="

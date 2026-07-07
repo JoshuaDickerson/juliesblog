@@ -99,27 +99,35 @@ descriptive `alt`. The CSS already keeps images at their natural aspect ratio �
 do **not** add inline width/height styles that would distort them.
 
 ### 6. Wire it into the navigation
-The sidebar `.posts__list` is **duplicated on every page** (no build step), so add
-the new entry to *both* `index.html` and every file in `posts/`. Newest first.
-Each entry:
+The sidebar post list is rendered from a **single source of truth**,
+`assets/posts.js` (a `POSTS` array + a small renderer). Every page — `index.html`
+and every `posts/*.html` — just has an empty `<ul class="posts__list"
+id="posts-list"></ul>` that the script fills at load time, grouped by year and
+newest-first. The post-template already includes the empty `<ul>` and the
+`<script defer src="../assets/posts.js"></script>`, so a new post page needs **no
+nav markup**.
 
-```html
-<li class="posts__item">
-  <a class="posts__link" href="POST_HREF">
-    <span class="posts__date">June 20, 2026</span>
-    <span class="posts__title">Post title</span>
-  </a>
-</li>
+To list the new post, add ONE entry (in the correct newest-first slot) to the
+`POSTS` array in `assets/posts.js`:
+
+```js
+{ slug: "2026-06-20-first-harvest", date: "June 2026", year: 2026, title: "First Harvest" },
 ```
 
-Path rules (GitHub Pages serves under a subpath, so use relative links, never
-root-relative `/`):
-- On `index.html`: link posts as `posts/<slug>.html`.
-- On a `posts/*.html` page: link siblings as `<slug>.html`, the home page as
-  `../index.html`, and assets as `../assets/...`.
-- The page that represents the current post gets `aria-current="page"` on its
-  `<li>` (this draws the foxglove "stem" accent). Remove `aria-current` from the
-  others on that page.
+- `slug` must match the page filename (`posts/<slug>.html`).
+- `date` is the small label (a period is fine, e.g. `Spring 2019` or `June 2026`).
+- `title` is the headline shown in the list.
+- Keep the array newest-first; the renderer emits a year divider whenever `year`
+  changes, computes relative links itself (siblings vs `posts/…`), and marks the
+  current page `aria-current="page"` (the foxglove "stem" accent). Never use
+  root-relative `/` links — GitHub Pages may serve under a subpath.
+
+**The home page mirrors the most recent post.** If the new post is now the
+newest, update `index.html` so its `<article>` reproduces that post's body with
+**root-relative** asset paths (`assets/images/…`, no `../`) and matching
+eyebrow/title/footer. The permalink under `posts/` remains the canonical URL; the
+renderer highlights the newest entry on the home page and links it to
+`index.html`.
 
 ### 7. Verify in the browser
 Start the preview (`.claude/launch.json` has a `site` config) and check the new
@@ -134,6 +142,5 @@ height style or a stray attribute is overriding `height: auto`.
   rewriting her voice is not.
 - **Images**: always optimize through the script (or an equivalent resize+JPEG).
   Full-size Drive PNGs are multi-megabyte and bad for a Pages site.
-- **Growing the nav**: if the duplicated sidebar becomes tedious as posts pile
-  up, that's the signal to propose a shared-sidebar include or a static-site
-  generator — mention it, but don't refactor mid-publish without asking.
+- **The nav is data-driven**: all posts live in `assets/posts.js`. Adding a post
+  is a one-line edit there — do not hand-edit sidebars in each page.

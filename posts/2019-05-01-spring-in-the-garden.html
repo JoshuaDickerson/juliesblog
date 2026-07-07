@@ -30,15 +30,8 @@
 
       <nav aria-label="Posts">
         <h2 class="posts__header">Posts</h2>
-        <ul class="posts__list">
-          <!-- Newest first. This post is aria-current="page". -->
-          <li class="posts__item" aria-current="page">
-            <a class="posts__link" href="2019-05-01-spring-in-the-garden.html">
-              <span class="posts__date">Spring 2019</span>
-              <span class="posts__title">Spring in the garden</span>
-            </a>
-          </li>
-        </ul>
+        <!-- Rendered from assets/posts.js (single source of truth for all posts). -->
+        <ul class="posts__list" id="posts-list"></ul>
       </nav>
 
       <p class="sidebar__foot">&copy; 2026 Julia Parker</p>
@@ -91,5 +84,7 @@
     </main>
 
   </div>
+
+  <script defer src="../assets/posts.js"></script>
 </body>
 </html>
