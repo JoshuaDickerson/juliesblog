@@ -36,6 +36,14 @@ unzip -o -q "$WORK/post.zip" -d "$WORK/unzipped"
 IMG_DIR="$REPO/assets/images"
 mkdir -p "$IMG_DIR"
 
+# Long-edge cap and JPEG quality. 2560 keeps full-bleed photos crisp on hi-DPI
+# (retina) screens, where a full-width image can need ~2x its CSS pixels; a
+# smaller cap looks soft/pixelated when the browser upscales it. QUALITY 90
+# keeps visible detail (garden foliage) without JPEG mush. We NEVER upscale —
+# an original smaller than the cap is re-encoded at its native size.
+CAP=2560
+QUALITY=90
+
 echo "==== images ===="
 count=0
 seq=0
@@ -49,10 +57,16 @@ for img in "$WORK/unzipped/images/"*; do
   num="$(printf '%s' "$base" | sed -E 's/[^0-9]*([0-9]+).*/\1/')"
   case "$num" in ''|*[!0-9]*) num=$seq ;; esac
   out="$IMG_DIR/${SLUG}-${num}.jpg"
-  # Resize to max 1600px on the long edge and re-encode as JPEG. Garden photos
-  # are large PNGs out of Drive; this typically shrinks them ~6x with no visible
-  # loss, which matters for a GitHub Pages site.
-  sips -s format jpeg -Z 1600 "$img" --out "$out" >/dev/null
+  ow="$(sips -g pixelWidth "$img"  | awk '/pixelWidth/{print $2}')"
+  oh="$(sips -g pixelHeight "$img" | awk '/pixelHeight/{print $2}')"
+  long="$oh"; [ "${ow:-0}" -gt "${oh:-0}" ] && long="$ow"
+  if [ "${long:-0}" -gt "$CAP" ]; then
+    # Downscale large photos to the cap.
+    sips -s format jpeg -s formatOptions "$QUALITY" -Z "$CAP" "$img" --out "$out" >/dev/null
+  else
+    # Smaller than the cap: re-encode at native size, do NOT upscale.
+    sips -s format jpeg -s formatOptions "$QUALITY" "$img" --out "$out" >/dev/null
+  fi
   dims="$(sips -g pixelWidth -g pixelHeight "$out" | awk '/pixelWidth/{w=$2} /pixelHeight/{h=$2} END{print w"x"h}')"
   echo "assets/images/${SLUG}-${num}.jpg  (${dims})  <- imageN maps to -N; use as width/height attrs"
   count=$((count + 1))
