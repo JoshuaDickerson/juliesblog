@@ -288,6 +288,81 @@ a:hover { color: var(--color-accent); }
   color: var(--color-muted);
 }
 
+/* ---- Sidebar dropdown sections (gardens, articles) ----------- */
+.sections { display: grid; gap: 0.4rem; }
+
+.section {
+  border-top: 1px solid rgba(231,239,231,.16);
+  padding-top: 0.9rem;
+}
+
+.section__summary {
+  cursor: pointer;
+  list-style: none;                 /* hide the default triangle */
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.6rem;
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-sidebar-mut);
+  transition: color .18s ease;
+}
+.section__summary::-webkit-details-marker { display: none; }
+.section__summary:hover { color: var(--color-sidebar-ink); }
+.section__summary::after {
+  content: "+";
+  font-size: 1rem;
+  line-height: 1;
+  color: var(--color-accent);
+  flex: none;
+}
+.section[open] > .section__summary::after { content: "\2013"; }
+
+.section__list {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.15rem;
+}
+.section__link {
+  display: block;
+  position: relative;
+  padding: 0.45rem 0.75rem 0.45rem 1rem;
+  border-radius: var(--radius);
+  color: var(--color-sidebar-ink);
+  text-decoration: none;
+  font-size: 0.85rem;
+  line-height: 1.35;
+  transition: background-color .18s ease;
+}
+.section__link:hover { background: rgba(231,239,231,.08); color: var(--color-sidebar-ink); }
+
+/* Active garden gets the same foxglove "stem" as the active post */
+.section__item[aria-current="page"] .section__link { background: rgba(231,239,231,.10); }
+.section__item[aria-current="page"] .section__link::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.55rem; bottom: 0.55rem;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--color-accent);
+}
+
+/* ---- Garden profile: before/after gallery heading ------------ */
+.gallery__heading {
+  grid-column: 1 / -1;
+  margin: 1rem 0 0;
+  font-size: var(--step--1);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-line);
+}
+
 /* ---- Motion: one quiet page-load reveal ---------------------- */
 @media (prefers-reduced-motion: no-preference) {
   .entry { animation: rise .6s cubic-bezier(.2,.7,.2,1) both; }

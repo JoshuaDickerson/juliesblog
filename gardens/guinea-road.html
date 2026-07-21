@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guinea Road Garden — Julie's Garden</title>
+  <meta name="description" content="A native plant garden on the corner of Spear Street and Guinea Road, planted where people once dumped unwanted items.">
+
+  <link rel="icon" href="../favicon.ico" sizes="any">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../assets/theme.css">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body>
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="masthead">
+        <p class="masthead__eyebrow">A gardening journal</p>
+        <h1 class="masthead__title"><a href="../index.html" style="color:inherit;text-decoration:none">Julie&rsquo;s<br>Garden</a></h1>
+        <p class="masthead__tagline">Notes from a gardener newly transplanted from Vermont to the Pacific Northwest.</p>
+      </div>
+
+      <nav aria-label="Posts">
+        <h2 class="posts__header">Posts</h2>
+        <!-- Rendered from assets/posts.js (single source of truth). -->
+        <ul class="posts__list" id="posts-list"></ul>
+      </nav>
+
+      <p class="sidebar__foot">&copy; 2026 Julia Parker</p>
+    </aside>
+
+    <main class="main">
+      <article class="entry">
+        <p class="entry__eyebrow">
+          <span class="sprig" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 21V7"/><path d="M12 12c0-3 2-5 5-5 0 3-2 5-5 5Z"/><path d="M12 15c0-3-2-5-5-5 0 3 2 5 5 5Z"/>
+            </svg>
+          </span>
+          Garden Profile
+        </p>
+
+        <h2 class="entry__title">Guinea Road Garden</h2>
+        <hr class="entry__rule">
+
+        <div class="entry-grid">
+
+          <div class="block prose prose--lead">
+            <p>This lovely space is privately owned, however accessible to the public. The Guinea road garden is a native plant garden featuring a witch hazel tree, dogwoods, an arrowwood, and large variety of beneficial herbaceous perennials. Planted with a large variety of natives and nectar plants, this install was beloved by bees and butterflies nearly the moment it was placed. The garden is located on a busy corner of Spear st that connects with the very scenic Guinea rd. The Guinea Road garden replaces a spot where folks used to dump unwanted items.</p>
+          </div>
+
+          <h3 class="gallery__heading">Before</h3>
+          <figure class="figure figure--bleed">
+            <img src="../assets/images/gardens/guinea-road-before-1.jpg" width="640" height="480" loading="lazy" alt="A long roadside bed of freshly turned dark soil and compost with small perennials just set into it, a gardener in a blue shirt bending to plant, a spade and watering can nearby, and a parked car on the road behind.">
+            <figcaption>Planting day along the roadside.</figcaption>
+          </figure>
+
+        </div>
+
+        <p class="entry__foot"><a href="../index.html">&larr; Back to Julie&rsquo;s Garden</a></p>
+      </article>
+    </main>
+
+  </div>
+
+  <script defer src="../assets/posts.js"></script>
+</body>
+</html>

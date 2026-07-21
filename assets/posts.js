@@ -1,12 +1,14 @@
 /* =============================================================
-   Julie's Garden — POST INDEX (single source of truth)
-   Every page includes this script; it renders the sidebar
-   "Posts" list (grouped by year, newest first) into
-   <ul id="posts-list">. Add a new post by adding ONE entry
-   to the POSTS array below — no need to edit every page.
+   Julie's Garden — SITE NAV (single source of truth)
+   Every page includes this script. It renders:
+     1. the "Posts" list into <ul id="posts-list">, grouped by year
+     2. two dropdown sections (Garden Profiles, Articles and
+        Reference Materials) which it inserts into the sidebar
+   Adding a post/garden/article is a one-line edit below — no
+   page markup needs to change.
    ============================================================= */
 (function () {
-  // Newest first. dateISO drives ordering only through this hand-sorted order.
+  // ---- Posts: newest first -------------------------------------
   var POSTS = [
     { slug: "2024-02-01-february",          date: "February 2024",          year: 2024, title: "Spring 2024: Don’t Panic" },
 
@@ -38,50 +40,133 @@
     { slug: "2019-05-01-spring-in-the-garden", date: "Spring 2019",          year: 2019, title: "Spring in the garden" }
   ];
 
-  var list = document.getElementById("posts-list");
-  if (!list) return;
+  // ---- Garden profiles: each links to its own page --------------
+  var GARDENS = [
+    { slug: "quinlan-covered-bridge", title: "The Butterfly Garden at Quinlan Covered Bridge" },
+    { slug: "quakers-corners",        title: "The Butterfly Garden at Quaker’s Corners" },
+    { slug: "rotax-and-roscoe",       title: "The Pollinator Garden at Rotax and Roscoe" },
+    { slug: "guinea-road",            title: "Guinea Road Garden" },
+    { slug: "fairwinds-farm",         title: "Fairwinds Farm" }
+  ];
 
+  // ---- Articles & reference: open in a new window ---------------
+  // `local: true` means the file lives in this repo and needs the path prefix.
+  var ARTICLES = [
+    { title: "Gardening for Pollinators Master Gardener Booklet", href: "assets/docs/gardening-for-pollinators-master-gardener-booklet.pdf", local: true },
+    { title: "The Citizen Newspaper", href: "https://www.vtcng.com/thecitizenvt/news/vermonters-help-state-s-pollinators-by-growing-native-crops-in-gardens/article_e93e848a-5a9b-11ef-8327-7fe24027a087.html" },
+    { title: "Vermont Daily Chronicle", href: "https://vermontdailychronicle.com/citizen-science-key-to-preserving-monarch-butterflies-grand-migration-experts-say/" },
+    { title: "Charlotte News", href: "https://www.charlottenewsvt.org/2024/11/28/julia-parker-dickinson-has-created-a-path-for-pollinators/" },
+    { title: "Planting for Pollinators Presentation", href: "https://www.uvm.edu/d10-files/documents/2024-10/PollinatorGarden_JuliaParkerDickerson.pdf" },
+    { title: "Class listing: North Branch Biodiversity University", href: "https://vnlavt.org/2025/05/04/north-branch-nature-center-biodiversity-university-course/" }
+  ];
+
+  // ---- Where are we? -------------------------------------------
   var path = window.location.pathname;
   var inPosts = path.indexOf("/posts/") !== -1;
+  var inGardens = path.indexOf("/gardens/") !== -1;
+  var prefix = (inPosts || inGardens) ? "../" : "";   // one folder deep
   var file = path.substring(path.lastIndexOf("/") + 1);
-  var isHome = !inPosts && (file === "" || file === "index.html");
-  // The home page mirrors the newest post, so highlight it there.
-  var currentSlug = inPosts ? file.replace(/\.html$/, "") : (isHome ? POSTS[0].slug : "");
+  var isHome = !inPosts && !inGardens && (file === "" || file === "index.html");
+  var slugHere = file.replace(/\.html$/, "");
 
-  var homeHref = inPosts ? "../index.html" : "index.html";
-  function hrefFor(slug) {
-    return inPosts ? slug + ".html" : "posts/" + slug + ".html";
+  // The home page mirrors the newest post, so highlight it there.
+  var currentPost = inPosts ? slugHere : (isHome ? POSTS[0].slug : "");
+  var currentGarden = inGardens ? slugHere : "";
+
+  var homeHref = prefix + "index.html";
+
+  // ---- 1. Posts list -------------------------------------------
+  var list = document.getElementById("posts-list");
+  if (list) {
+    var frag = document.createDocumentFragment();
+    var lastYear = null;
+    POSTS.forEach(function (p) {
+      if (p.year !== lastYear) {
+        var y = document.createElement("li");
+        y.className = "posts__year";
+        y.setAttribute("aria-hidden", "true");
+        y.textContent = p.year;
+        frag.appendChild(y);
+        lastYear = p.year;
+      }
+      var active = p.slug === currentPost;
+      var li = document.createElement("li");
+      li.className = "posts__item";
+      if (active) li.setAttribute("aria-current", "page");
+      var a = document.createElement("a");
+      a.className = "posts__link";
+      a.href = (active && isHome) ? homeHref : prefix + "posts/" + p.slug + ".html";
+      var d = document.createElement("span");
+      d.className = "posts__date";
+      d.textContent = p.date;
+      var t = document.createElement("span");
+      t.className = "posts__title";
+      t.textContent = p.title;
+      a.appendChild(d); a.appendChild(t); li.appendChild(a);
+      frag.appendChild(li);
+    });
+    list.innerHTML = "";
+    list.appendChild(frag);
   }
 
-  var frag = document.createDocumentFragment();
-  var lastYear = null;
-  POSTS.forEach(function (p) {
-    if (p.year !== lastYear) {
-      var y = document.createElement("li");
-      y.className = "posts__year";
-      y.setAttribute("aria-hidden", "true");
-      y.textContent = p.year;
-      frag.appendChild(y);
-      lastYear = p.year;
-    }
-    var active = p.slug === currentSlug;
-    var li = document.createElement("li");
-    li.className = "posts__item";
-    if (active) li.setAttribute("aria-current", "page");
-    var a = document.createElement("a");
-    a.className = "posts__link";
-    a.href = (active && isHome) ? homeHref : hrefFor(p.slug);
-    var d = document.createElement("span");
-    d.className = "posts__date";
-    d.textContent = p.date;
-    var t = document.createElement("span");
-    t.className = "posts__title";
-    t.textContent = p.title;
-    a.appendChild(d);
-    a.appendChild(t);
-    li.appendChild(a);
-    frag.appendChild(li);
-  });
-  list.innerHTML = "";
-  list.appendChild(frag);
+  // ---- 2. Dropdown sections ------------------------------------
+  function buildSection(label, items) {
+    var details = document.createElement("details");
+    details.className = "section";
+    var summary = document.createElement("summary");
+    summary.className = "section__summary";
+    summary.textContent = label;          // no quotation marks in the label
+    details.appendChild(summary);
+
+    var ul = document.createElement("ul");
+    ul.className = "section__list";
+    items.forEach(function (it) {
+      var li = document.createElement("li");
+      li.className = "section__item";
+      if (it.current) li.setAttribute("aria-current", "page");
+      var a = document.createElement("a");
+      a.className = "section__link";
+      a.href = it.href;
+      a.textContent = it.title;           // the name itself carries the link
+      if (it.external) {
+        a.target = "_blank";              // open in an additional window
+        a.rel = "noopener noreferrer";
+      }
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    details.appendChild(ul);
+    return details;
+  }
+
+  var sidebar = document.querySelector(".sidebar");
+  var postsNav = sidebar && sidebar.querySelector('nav[aria-label="Posts"]');
+  if (sidebar && postsNav) {
+    var sections = document.createElement("nav");
+    sections.className = "sections";
+    sections.setAttribute("aria-label", "Sections");
+
+    var gardenItems = GARDENS.map(function (g) {
+      return {
+        title: g.title,
+        href: prefix + "gardens/" + g.slug + ".html",
+        current: g.slug === currentGarden
+      };
+    });
+    var gardenSection = buildSection("Garden Profiles", gardenItems);
+    if (currentGarden) gardenSection.open = true;   // reveal the active garden
+    sections.appendChild(gardenSection);
+
+    var articleItems = ARTICLES.map(function (a) {
+      return {
+        title: a.title,
+        href: a.local ? prefix + a.href : a.href,
+        external: true
+      };
+    });
+    sections.appendChild(buildSection("Articles and Reference Materials", articleItems));
+
+    // Sit above the (long) post archive so the menus stay reachable.
+    postsNav.parentNode.insertBefore(sections, postsNav);
+  }
 })();
